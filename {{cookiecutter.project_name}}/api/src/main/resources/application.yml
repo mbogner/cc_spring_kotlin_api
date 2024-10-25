@@ -1,0 +1,23 @@
+logging:
+  level:
+    root: INFO
+    dev.mbo: TRACE
+
+server:
+  port: {{cookiecutter.api_port}}
+  shutdown: graceful
+
+spring:
+  application:
+    name: {{cookiecutter.project_name}}
+  main:
+    banner-mode: off
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+      cors:
+        allowed-origins: "*"
+        allowed-methods: GET

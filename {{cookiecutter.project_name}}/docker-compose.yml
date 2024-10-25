@@ -1,0 +1,19 @@
+services:
+  api:
+    image: openjdk:{{cookiecutter.java_version}}
+    working_dir: /application
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./api.jar:/application/api.jar:ro
+      - ./docker-run.sh:/application/docker-run.sh:ro
+    command: [ "/application/docker-run.sh" ]
+    restart: always
+    ports:
+      - "0.0.0.0:{{cookiecutter.api_port}}:{{cookiecutter.api_port}}"
+    healthcheck:
+      test: curl -s http://127.0.0.1:{{cookiecutter.api_port}}/actuator/health | grep -i up
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
