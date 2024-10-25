@@ -2,5 +2,5 @@
 .vscode/
 .kotlin/
 .idea/
-test/
+/test/
 *.zip
