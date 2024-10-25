@@ -1,0 +1,39 @@
+openapi: 3.0.3
+info:
+  title: ignored
+  version: ignored
+paths: { }
+
+components:
+  parameters:
+    pageOptional:
+      in: query
+      name: page
+      description: Pagination parameter. Skips page * size entries.
+      required: false
+      schema:
+        default: 0
+        format: int32
+        minimum: 0
+        type: integer
+    sizeOptional:
+      name: size
+      description: Max number of results per page.
+      in: query
+      required: false
+      schema:
+        default: 20
+        format: int32
+        maximum: 10000
+        minimum: 1
+        type: integer
+    sortOptional:
+      name: sort
+      description: Parameter to sort by as field(:(asc|desc))?. If missing default sort is used. field is the name in
+        the db model not the db field name.
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      allowReserved: true

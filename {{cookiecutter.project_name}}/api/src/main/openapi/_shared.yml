@@ -1,0 +1,91 @@
+openapi: 3.0.3
+info:
+  title: ignored
+  version: ignored
+paths: { }
+
+components:
+  schemas:
+    SharedIntId:
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Integer id for reuse in various objects.
+          example: 1
+    SharedLockVersion:
+      properties:
+        lockVersion:
+          type: integer
+          format: int32
+          description: Lock version for optimistic locking. Needed for updating existing resources.
+          example: 0
+    SharedEntityMetadata:
+      allOf:
+        - properties:
+            createdAt:
+              description: "Timestamp when the resource was created. Example: 2024-01-01T00:00:00.000Z"
+              type: string
+              format: date-time
+            updatedAt:
+              description: "Timestamp when the resource was last updated. Example: 2024-01-01T00:00:00.000Z"
+              type: string
+              format: date-time
+        - $ref: '#/components/schemas/SharedLockVersion'
+    SharedListMetadata:
+      properties:
+        first:
+          description: Boolean true if it's the first page.
+          type: boolean
+          default: false
+          example: false
+        last:
+          description: Boolean true if it's the last page.
+          type: boolean
+          default: false
+          example: false
+        number:
+          description: The requested page.
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        number_of_elements:
+          description: Number of elements on this page.
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        size:
+          description: The requested page size.
+          type: integer
+          format: int32
+          minimum: 0
+          example: 1
+        total_elements:
+          description: Total number of entries matching the query.
+          type: integer
+          format: int64
+          minimum: 0
+          example: 42
+        total_pages:
+          description: Number of pages in total.
+          type: integer
+          format: int32
+          minimum: 0
+          example: 84
+        sort:
+          description: Used values to sort the result.
+          type: array
+          items:
+            type: string
+          example: name:asc
+      required:
+        - first
+        - last
+        - number
+        - number_of_elements
+        - size
+        - total_elements
+        - total_pages
+        - sort

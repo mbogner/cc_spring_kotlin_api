@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.spring")
     kotlin("plugin.jpa")
     id("org.openapi.generator")
+    id("com.rameshkp.openapi-merger-gradle-plugin")
     jacoco
 }
 
@@ -84,10 +85,11 @@ val openAPIBasePackage = "{{cookiecutter.package}}"
 val openAPISpecParts: String by System.getProperties()
 val openAPISpecFilePath: String by System.getProperties()
 val openAPIGenOutBase: String by System.getProperties()
+
 val openAPISpecFileNamePrefix: String by System.getProperties()
 val openAPISpecFileExt: String by System.getProperties()
 val openAPISpecFileName = "${openAPISpecFileNamePrefix}${project.name}"
-val openAPISpecFile = "$projectDir/$openAPISpecFilePath/$openAPISpecFileName.$openAPISpecFileExt"
+val openAPISpecFile = "${projectDir.path}/src/main/resources/$openAPISpecFileName.$openAPISpecFileExt"
 val openApiSrcDir = "${layout.buildDirectory.get()}/$openAPIGenOutBase/src/main/kotlin"
 
 sourceSets {
@@ -97,6 +99,34 @@ sourceSets {
         }
         resources {
             srcDirs("src/main/resources")
+        }
+    }
+}
+
+// config needs to be above any tasks referencing it
+openApiMerger {
+    inputDirectory.set(file("${projectDir.path}/${openAPISpecParts}"))
+    output {
+        fileName.set(openAPISpecFileName)
+        fileExtension.set(openAPISpecFileExt)
+        directory.set(file("${projectDir.path}/src/main/resources"))
+    }
+    openApi {
+        openApiVersion.set("3.0.3")
+        info {
+            title.set("Product Configurator API")
+            description.set("API for configurable product.")
+            version.set("v1")
+            license {
+                name.set("mbo.dev proprietary license")
+                url.set("https://mbo.dev")
+            }
+        }
+        servers {
+            register("local") {
+                url.set("https://localhost:8080")
+                description.set("local")
+            }
         }
     }
 }
@@ -149,8 +179,9 @@ val openApiClean = tasks.register<Delete>("openApiClean") {
     delete("$openApiSrcDir/${openAPIBasePackage.replace(".", "/")}")
 }
 
+val openApiMergeTask = tasks.getByName("mergeOpenApiFiles")
 val openApiGenerateTask = tasks.getByName("openApiGenerate")
-openApiGenerateTask.dependsOn(openApiClean)
+openApiGenerateTask.dependsOn(openApiMergeTask, openApiClean)
 
 // get rid of deprecation warning that kaptGenerateStubsKotlin
 // depends on openApiGenerate but doesn't declare a dependency

@@ -1,15 +1,10 @@
 openapi: 3.0.3
 info:
-  title: {{cookiecutter.project_name}}
-  description: TODO
-  version: 1.0
+  title: ignored
+  version: ignored
+
 tags:
   - name: Example
-
-servers:
-  - url: "http://localhost:{{cookiecutter.api_port}}"
-    description: Local Development
-
 paths:
   /v1/example:
     description: Example endpoint.
