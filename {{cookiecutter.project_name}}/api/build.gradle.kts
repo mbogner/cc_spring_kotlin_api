@@ -1,5 +1,5 @@
 import java.io.ByteArrayOutputStream
-import java.util.*
+import java.util.Properties
 
 plugins {
     id("org.springframework.boot")
@@ -12,7 +12,7 @@ plugins {
 }
 
 dependencies {
-    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+    implementation(platform(libs.bom))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -21,8 +21,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-    implementation(libs.swagger.annotations)
-    implementation(libs.swagger.models)
+    implementation("io.swagger.core.v3:swagger-annotations")
+    implementation("io.swagger.core.v3:swagger-models")
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -114,18 +114,14 @@ openApiMerger {
     openApi {
         openApiVersion.set("3.0.3")
         info {
-            title.set("Product Configurator API")
-            description.set("API for configurable product.")
+            title.set("{{cookiecutter.project_name}} API")
+            description.set("{{cookiecutter.project_name}} API")
             version.set("v1")
-            license {
-                name.set("mbo.dev proprietary license")
-                url.set("https://mbo.dev")
-            }
         }
         servers {
-            register("local") {
-                url.set("https://localhost:8080")
-                description.set("local")
+            register("dev") {
+                url.set("https://localhost:{{cookiecutter.api_port}}")
+                description.set("dev")
             }
         }
     }
