@@ -3,7 +3,7 @@
     "project_key": "{{cookiecutter.project_name|lower|replace('-', '')|replace('_', '')}}",
     "package": "dev.mbo.{{cookiecutter.project_key}}",
     "package_dir": "{{cookiecutter.package|replace('.', '/')}}",
-    "version": "0.0.1-SNAPSHOT",
+    "version": "1.0.0",
     "java_version": "21",
     "api_port": "8080",
     "version_control": [
