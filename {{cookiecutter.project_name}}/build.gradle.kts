@@ -2,6 +2,7 @@ plugins {
     id("org.sonarqube")
     kotlin("jvm") apply false
     jacoco
+    id("net.researchgate.release")
 }
 
 allprojects {

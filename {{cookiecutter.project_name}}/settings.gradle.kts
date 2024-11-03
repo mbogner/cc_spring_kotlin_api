@@ -15,20 +15,26 @@ pluginManagement {
     }
 
     plugins {
-        val kotlinVersion: String by System.getProperties()
         val springBootVersion: String by System.getProperties()
-        val openapiGeneratorVersion: String by System.getProperties()
-        val openapiMergerVersion: String by System.getProperties()
-        val sonarqubeVersion: String by System.getProperties()
-
         id("org.springframework.boot") version springBootVersion
+
+        val kotlinVersion: String by System.getProperties()
         kotlin("jvm") version kotlinVersion
         kotlin("plugin.spring") version kotlinVersion
         kotlin("plugin.jpa") version kotlinVersion
         kotlin("plugin.noarg") version kotlinVersion
+
+        val openapiGeneratorVersion: String by System.getProperties()
         id("org.openapi.generator") version openapiGeneratorVersion
+
+        val openapiMergerVersion: String by System.getProperties()
         id("com.rameshkp.openapi-merger-gradle-plugin") version openapiMergerVersion
+
+        val sonarqubeVersion: String by System.getProperties()
         id("org.sonarqube") version sonarqubeVersion
+
+        val gradleReleasePluginVersion: String by System.getProperties()
+        id("net.researchgate.release") version gradleReleasePluginVersion
     }
 }
 
