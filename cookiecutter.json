@@ -1,7 +1,10 @@
 {
     "project_name": "",
+    "description": "API implemented with Spring Boot based on OpenAPI.",
     "project_key": "{{cookiecutter.project_name|lower|replace('-', '')|replace('_', '')}}",
-    "package": "dev.mbo.{{cookiecutter.project_key}}",
+    "base_package": "dev.mbo",
+    "base_package_dir": "{{cookiecutter.base_package|replace('.', '/')}}",
+    "package": "{{cookiecutter.base_package}}.{{cookiecutter.project_key}}",
     "package_dir": "{{cookiecutter.package|replace('.', '/')}}",
     "version": "1.0.0",
     "java_version": "21",

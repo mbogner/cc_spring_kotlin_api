@@ -1,15 +1,21 @@
 # {{cookiecutter.project_name}}
 
-API implemented with Spring Boot based on OpenAPI.
+{{cookiecutter.description}}
 
 ## Release
 
-For example this prepares a release of 1.0.0 and a development version of 1.0.1-SNAPSHOT.
-Do NOT run it with the sample versions. This needs to be updated on every run.
+All releases have to be done from main branch.
+
+The following example releases version 1.0.0 and prepares a development version of 1.0.1-SNAPSHOT.
 
 ```shell
-./gradlew release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0 -Prelease.newVersion=1.0.1-SNAPSHOT
+./gradlew release -Prelease.useAutomaticVersion=true \
+  -Prelease.releaseVersion=1.0.0 \
+  -Prelease.newVersion=1.0.1-SNAPSHOT
 ```
 
-You can skip `-Prelease.releaseVersion=1.0.0 -Prelease.newVersion=1.0.1-SNAPSHOT` to release the snapshot and
-autoincrement.
+You can skip the version definitions to release the snapshot and automatically increment.
+
+```shell
+./gradlew release -Prelease.useAutomaticVersion=true
+```

@@ -41,15 +41,6 @@ allprojects {
                 html.required.set(false)
             }
         }
-
-        named("afterReleaseBuild") {
-            dependsOn(
-                "signMavenPublication",
-                "publishToMavenLocal",
-                "publishToSonatype",
-                "closeAndReleaseSonatypeStagingRepository"
-            )
-        }
     }
 }
 
