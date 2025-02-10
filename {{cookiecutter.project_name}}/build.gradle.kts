@@ -41,6 +41,12 @@ allprojects {
                 html.required.set(false)
             }
         }
+
+        withType<Wrapper> {
+            val gradleReleaseVersion: String by System.getProperties()
+            gradleVersion = gradleReleaseVersion
+            distributionType = Wrapper.DistributionType.BIN
+        }
     }
 }
 
