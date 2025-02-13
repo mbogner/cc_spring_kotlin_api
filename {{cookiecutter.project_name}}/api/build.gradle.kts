@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.support.serviceOf
 import java.io.ByteArrayOutputStream
 import java.util.Properties
 
@@ -70,12 +71,13 @@ tasks {
 fun getCommitHash(): String {
     return try {
         val stdout = ByteArrayOutputStream()
-        exec {
+        val execOps: ExecOperations = project.serviceOf()
+        execOps.exec {
             commandLine("git", "rev-parse", "HEAD")
             standardOutput = stdout
         }
         stdout.toString().trim()
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         "Unknown" // Fallback in case Git is not available or there's an error
     }
 }
