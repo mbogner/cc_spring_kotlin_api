@@ -12,6 +12,8 @@ spring:
     name: {{cookiecutter.project_name}}
   main:
     banner-mode: off
+  profiles:
+    active: local
 
 management:
   endpoints:
